@@ -3,6 +3,12 @@ from sqlalchemy import create_engine, Column, String, Date, Integer, Text, DateT
 from sqlalchemy.ext.declarative import declarative_base
 from datetime import datetime
 from datetime import date
+import os
+
+# Удаляем старую базу данных, если она существует
+if os.path.exists('template.db'):
+    os.remove('template.db')
+    print("Старая база данных template.db удалена.")
 
 # Определяем базовую модель
 Base = declarative_base()

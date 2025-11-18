@@ -113,7 +113,7 @@ class BaseDB:
 
         return rows
 
-    def editLinkDescription(self, link_id, description=None, cover_letter=None, read_me=None) -> bool:
+    def editLinkDescription(self, link_id, name, autor, rating, description, app_link, len_ratings, len_users) -> bool:
         ''' Записываем описание вакансии '''
 
         session = self.Session()
@@ -124,12 +124,18 @@ class BaseDB:
         try:            
             if description:
                 link.description = description
-
-            if cover_letter:
-                link.cover_letter = cover_letter
-
-            if read_me:
-                link.read_me = read_me
+            if name:
+                link.name = name
+            if autor:
+                link.autor = autor
+            if rating:
+                link.rating = rating
+            if app_link:
+                link.app_link = app_link
+            if len_ratings:
+                link.len_ratings = len_ratings
+            if len_users:
+                link.len_users = len_users           
             
             session.commit()
         except Exception as e:
@@ -194,4 +200,31 @@ class BaseDB:
         session.close()
         
         return result
+
+    def getAllData(self) -> list[model.Tentacles]:
+        ''' Получаем все записи из базы '''
+        session = self.Session()
+        try:
+            all_data = session.query(model.Tentacles).all()
+            return all_data
+        except Exception as e:
+            print(f"Ошибка при получении всех данных: {e}")
+            return []
+        finally:
+            session.close()
+
+    def getCountAll(self) -> int:
+        # Открываем сессию
+        session = self.Session()
+
+        # Собираем запрос
+        query = session.query(model.Tentacles)
+
+        # query = query.all()
+
+        result = query.count()
+
+        # Закрываем сессию
+        session.close()
         
+        return result
