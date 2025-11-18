@@ -81,8 +81,6 @@
 ```bash
 
     > python parser.py    
-    > URL для скана:https://chromewebstore.google.com/search/highlight?_category=extensions&pli=1
-    > оличество страниц (число): 33
 
 ```
 
